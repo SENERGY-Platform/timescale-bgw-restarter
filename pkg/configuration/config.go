@@ -28,11 +28,12 @@ import (
 )
 
 type ConfigStruct struct {
-	PostgresHost string `json:"postgres_host"`
-	PostgresPort uint16 `json:"postgres_port"`
-	PostgresUser string `json:"postgres_user"`
-	PostgresDb   string `json:"postgres_db"`
-	PostgresPw   string `json:"postgres_pw"`
+	PostgresHost   string `json:"postgres_host"`
+	PostgresPort   uint16 `json:"postgres_port"`
+	PostgresUser   string `json:"postgres_user"`
+	PostgresDb     string `json:"postgres_db"`
+	PostgresPw     string `json:"postgres_pw"`
+	CutoffDuration string `json:"cutoff_duration"`
 }
 
 type Config = *ConfigStruct

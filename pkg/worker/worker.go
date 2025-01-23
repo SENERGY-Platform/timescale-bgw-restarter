@@ -47,7 +47,11 @@ func Run(ctx context.Context, config configuration.Config) error {
 	if err != nil {
 		return err
 	}
-	timeBorder := time.Now().Add(-12 * time.Hour)
+	duration, err := time.ParseDuration(config.CutoffDuration)
+	if err != nil {
+		return err
+	}
+	timeBorder := time.Now().Add(-1 * duration)
 	if t.After(timeBorder) {
 		log.Printf("Next job schedule is set for %v, which is after border time of %v. Not performing any action.", t.Format(time.RFC3339), timeBorder.Format(time.RFC3339))
 		return nil

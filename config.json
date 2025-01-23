@@ -4,8 +4,5 @@
     "postgres_user": "postgres",
     "postgres_db": "postgres",
     "postgres_pw": "",
-    "postgres_source_schema": "public",
-    "postgres_usage_schema": "usage",
-    "duration": "",
-    "metrics_port": 2112
+    "cutoff_duration": "2h"
 }
