@@ -45,6 +45,10 @@ func Run(ctx context.Context, config configuration.Config) error {
 	var t time.Time
 	err = row.Scan(&t)
 	if err != nil {
+		if err == pgx.ErrNoRows {
+			log.Println("No jobs found, that's ok")
+			return nil
+		}
 		return err
 	}
 	duration, err := time.ParseDuration(config.CutoffDuration)
