@@ -18,10 +18,11 @@ package pkg
 
 import (
 	"context"
-	"log"
 	"sync"
 
+	"github.com/SENERGY-Platform/go-service-base/struct-logger/attributes"
 	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/configuration"
+	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/log"
 	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/worker"
 )
 
@@ -32,7 +33,7 @@ func Start(ctx context.Context, config configuration.Config) (wg *sync.WaitGroup
 		defer wg.Done()
 		err = worker.Run(ctx, config)
 		if err != nil {
-			log.Fatal(err)
+			log.Logger.Error("worker failed", attributes.ErrorKey, err)
 		}
 	}()
 

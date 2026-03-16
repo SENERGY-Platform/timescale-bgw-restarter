@@ -19,37 +19,40 @@ package main
 import (
 	"context"
 	"flag"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"github.com/SENERGY-Platform/go-service-base/struct-logger/attributes"
 	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg"
 	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/configuration"
+	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/log"
 )
 
 func main() {
-
+	log.Init()
 	configLocation := flag.String("config", "config.json", "configuration file")
 	flag.Parse()
 
 	config, err := configuration.Load(*configLocation)
 	if err != nil {
-		log.Fatal(err)
+		log.Logger.Error("failed to load configuration", attributes.ErrorKey, err)
+		os.Exit(1)
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
 
 	wg, err := pkg.Start(ctx, config)
 	if err != nil {
-		log.Fatal(err)
+		log.Logger.Error("failed to start application", attributes.ErrorKey, err)
+		os.Exit(1)
 	}
 
 	go func() {
 		shutdown := make(chan os.Signal, 1)
 		signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 		sig := <-shutdown
-		log.Println("received shutdown signal", sig)
+		log.Logger.Info("received shutdown signal", "signal", sig)
 		cancel()
 	}()
 

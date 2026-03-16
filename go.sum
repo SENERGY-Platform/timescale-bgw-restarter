@@ -1,3 +1,5 @@
+github.com/SENERGY-Platform/go-service-base/struct-logger v0.6.0 h1:DQNAPU1DI3XNyLaIGnHN9O0gZ7Q+tyOq/ZmAvbL/5gg=
+github.com/SENERGY-Platform/go-service-base/struct-logger v0.6.0/go.mod h1:z9cf8WOUMLoifRj5Tqts1MNe6QoPFq5Msxj899ZC11g=
 github.com/cockroachdb/apd v1.1.0 h1:3LFP3629v+1aKXU5Q37mxmRxX/pIu1nijXydLShEq5I=
 github.com/cockroachdb/apd v1.1.0/go.mod h1:8Sl8LxpKi29FqWXR16WEFZRNSz3SoPzUzeMeY4+DwBQ=
 github.com/gofrs/uuid v4.4.0+incompatible h1:3qXRTX8/NbyulANqlc0lchS1gqAVxRgsuW1YrTJupqA=

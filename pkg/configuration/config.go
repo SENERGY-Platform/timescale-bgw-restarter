@@ -19,12 +19,14 @@ package configuration
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/SENERGY-Platform/go-service-base/struct-logger/attributes"
+	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/log"
 )
 
 type ConfigStruct struct {
@@ -41,13 +43,13 @@ type Config = *ConfigStruct
 func Load(location string) (config Config, err error) {
 	file, err := os.Open(location)
 	if err != nil {
-		log.Println("error on config load: ", err)
+		log.Logger.Error("error on config load: ", attributes.ErrorKey, err)
 		return config, err
 	}
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&config)
 	if err != nil {
-		log.Println("invalid config json: ", err)
+		log.Logger.Error("invalid config json: ", attributes.ErrorKey, err)
 		return config, err
 	}
 	HandleEnvironmentVars(config)
