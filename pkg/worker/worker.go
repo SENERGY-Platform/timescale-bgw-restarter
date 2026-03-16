@@ -18,6 +18,7 @@ package worker
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/SENERGY-Platform/timescale-bgw-restarter/pkg/configuration"
@@ -57,10 +58,10 @@ func Run(ctx context.Context, config configuration.Config) error {
 	}
 	timeBorder := time.Now().Add(-1 * duration)
 	if t.After(timeBorder) {
-		log.Logger.Info("Next job schedule is set for %v, which is after border time of %v. Not performing any action.", t.Format(time.RFC3339), timeBorder.Format(time.RFC3339))
+		log.Logger.Info(fmt.Sprintf("Next job schedule is set for %v, which is after border time of %v. Not performing any action.", t.Format(time.RFC3339), timeBorder.Format(time.RFC3339)))
 		return nil
 	}
-	log.Logger.Info("Next job schedule is set for %v, which is before border time of %v. Restarting background workers!", t.Format(time.RFC3339), timeBorder.Format(time.RFC3339))
+	log.Logger.Info(fmt.Sprintf("Next job schedule is set for %v, which is before border time of %v. Restarting background workers!", t.Format(time.RFC3339), timeBorder.Format(time.RFC3339)))
 	_, err = conn.Exec("SELECT _timescaledb_internal.restart_background_workers();")
 	if err != nil {
 		return err
