@@ -36,6 +36,7 @@ func Init() {
 	handler := slogger.GetHandler("json", os.Stdout, options, slog.Default().Handler())
 	handler = handler.WithAttrs([]slog.Attr{
 		slog.String(attributes.ProjectKey, "github.com/SENERGY-Platform/timescale-bgw-restarter"),
+		slog.String(attributes.OrganizationKey, "github.com/SENERGY-Platform"),
 	})
 
 	Logger = slog.New(handler)
