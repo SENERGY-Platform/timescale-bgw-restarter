@@ -35,7 +35,7 @@ func Run(ctx context.Context, config configuration.Config) error {
 			User:     config.PostgresUser,
 			Password: config.PostgresPw,
 		},
-		MaxConnections: 10,
+		MaxConnections: 5,
 		AcquireTimeout: 0})
 	if err != nil {
 		return err
